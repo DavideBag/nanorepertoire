@@ -1,13 +1,19 @@
 #!/usr/bin/env nextflow
+
+//preparing the input channel for the workflow as a metamap
+
+input_ch = Channel
+        .fromFilePairs('path/to/file_pairs/fastq')
+        .map{ name, reads ->
+            [[id:name], [reads[0], reads[1]]]
+            }
+
 // this subworkflow prepares the inputs from fastq files for the translation
-
-
-
 // modules to include in this subworkflow
 
-include {CUTADAPT     } from '/Users/bagordo/Desktop/all/all_bioinformatics/nf-core-nanorepertoire/modules/nf-core/cutadapt/main.nf'
-include {FLASH        } from '/Users/bagordo/Desktop/all/all_bioinformatics/nf-core-nanorepertoire/modules/nf-core/flash/main.nf'
-include {RENAME       } from '/Users/bagordo/Desktop/all/all_bioinformatics/nf-core-nanorepertoire/modules/local/rename/main.nf'
+include {CUTADAPT     } from '../../modules/nf-core/cutadapt/main.nf'
+include {FLASH        } from '../../modules/nf-core/flash/main.nf'
+include {RENAME       } from '../../modules/local/rename/main.nf'
 
 
 ///Users/bagordo/Desktop/all/all_bioinformatics/nf-core-nanorepertoire/data/*_{1,2}_dummy2.fastq
@@ -16,15 +22,11 @@ workflow PREPARE_READS {
 
     // with take we define the input channels
     take:
-    reads      // channel: [mandatory] [ val(meta), [ reads ] ]
+    reads      // channel: [[id], reads_forward, reads_reverse]
 
     main:
     // define the channels that will be used to store the versions of the software
-    input_ch = Channel
-            .fromFilePairs(reads)
-            .map{ name, reads ->
-                [[id:name], [reads[0], reads[1]]]
-                }
+
     ch_versions = Channel.empty()
 
     CUTADAPT(input_ch)
