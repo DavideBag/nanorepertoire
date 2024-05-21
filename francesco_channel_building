@@ -1,0 +1,11 @@
+[id, [readfw, readrv]]
+
+[[id:'basename'], [readfwd, readrev]]
+
+ch_input = Channel
+   .fromFilePairs('/path/to/*_{1,2}.fq.gz')
+   .map{ name, reads ->
+       [[id:name], [reads[0], reads[1]]]
+    }
+
+    

@@ -1,0 +1,2 @@
+subworkflows/prepare_reads_for_translation:
+  - subworkflows/local/prepare_reads_for_translation/**

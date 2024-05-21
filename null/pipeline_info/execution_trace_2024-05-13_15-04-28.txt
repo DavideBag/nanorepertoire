@@ -1,0 +1,6 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+2	75/10c054	70601	SPLITLETTERS_one (1)	COMPLETED	0	2024-05-13 15:04:28.604	22ms	0ms	-	-	-	-	-
+1	3d/2c4106	70603	SPLITLETTERS_two (1)	COMPLETED	0	2024-05-13 15:04:28.608	35ms	0ms	-	-	-	-	-
+3	80/7a6223	70639	CONVERTTOUPPER_one (1)	COMPLETED	0	2024-05-13 15:04:28.645	26ms	0ms	-	-	-	-	-
+4	88/ad0277	70642	CONVERTTOUPPER_two (1)	COMPLETED	0	2024-05-13 15:04:28.651	23ms	0ms	-	-	-	-	-
+5	56/16825b	70683	CONVERTTOUPPER_two (2)	COMPLETED	0	2024-05-13 15:04:28.675	18ms	0ms	-	-	-	-	-

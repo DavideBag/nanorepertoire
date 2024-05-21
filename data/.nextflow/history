@@ -33,3 +33,4 @@
 2024-05-15 15:13:07	8.5s	compassionate_goldberg	ERR	cd657dc36562ea9657c20fe333c188cc	e7469257-f663-4d6e-a8e9-0c72b8df8f36	nextflow run test.nf -dump-channels input_ch
 2024-05-16 10:29:07	2.4s	angry_gates	ERR	cd657dc36562ea9657c20fe333c188cc	4e42d499-ec90-4c4d-892b-882203f73272	nextflow run test.nf -dump-channels input_ch
 2024-05-16 10:42:56	1.6s	curious_pasteur	ERR	92fd6d479271698dc19c4598594ca25d	1268c4ae-3e90-4f9e-9dd5-f10cf7f1913a	nextflow run test.nf -dump-channels input_ch
+2024-05-20 11:32:14	-	determined_darwin	-	92fd6d479271698dc19c4598594ca25d	f6655f7d-8612-4f90-9161-ffac1455e95f	nextflow run test.nf -dump-channels input_ch -with-conda --resume

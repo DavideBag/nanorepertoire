@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	e9/af4c6c	35676	foo	COMPLETED	0	2024-05-09 15:50:49.438	23ms	0ms	-	-	-	-	-

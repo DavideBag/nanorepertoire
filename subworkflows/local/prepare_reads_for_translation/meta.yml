@@ -1,0 +1,53 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "prepare_reads_for_translation"
+description: This subworkflow accepts forward and reverse reads of nanobodies as input, 
+             performs trimming with cutadapt, merges with flash, 
+             and subsequently renames the header to make it understandable for the following steps.
+keywords:
+  - nanobodies
+  - fastq_files
+  - trimming
+  - merging
+
+components:
+  - nf-core/cutadapt
+  - nf-core/flash
+  - local/rename
+
+input:
+  - ch_fastq:
+      type: file
+      description: |
+        The input channel containing the fastq_files
+        Structure: [[id], [reads_forward, reads_reverse]]
+      pattern: "*.{fastq,fastq.gz}"
+
+output:
+  - trimmed_fastq:
+      type: file
+      description: |
+        Channel containing fastq files after trimming
+        Structure: [[id], [reads_forward, reads_reverse]]
+      pattern: "*.fastq"
+  - merged :
+      type: file
+      description: |
+        Channel containing merged fastq files
+        Structure: [[id], [reads_merged]]
+      pattern: "*.fastq"
+  - renamed :
+      type: file
+      description: |
+        Channel containing renamed fastq files
+        Structure: [ [id], [reads_renamed] ]
+      pattern: "*.fastq"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: [ path(versions.yml) ]
+      pattern: "versions.yml"
+authors:
+  - "@davidebag"
+maintainers:
+  - "@davidebag"
