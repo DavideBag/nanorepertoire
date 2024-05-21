@@ -1,5 +1,13 @@
 #!/usr/bin/env nextflow
 
+//preparing the input channel for the workflow as a metamap
+
+params.input = '/Users/bagordo/Desktop/all/all_bioinformatics/nf-core-nanorepertoire/data/*_{1,2}_dummy2.fastq'
+input_ch = Channel
+        .fromFilePairs(params.input)
+        .map{ name, reads ->
+            [[id:name], [reads[0], reads[1]]]
+            }
 
 // this subworkflow prepares the inputs from fastq files for the translation
 // modules to include in this subworkflow
@@ -15,14 +23,14 @@ workflow PREPARE_READS {
 
     // with take we define the input channels
     take:
-    ch_samplesheet      // channel: [[id], [reads_forward, reads_reverse]]
+    input      // channel: [[id], [reads_forward, reads_reverse]]
 
     main:
     // define the channels that will be used to store the versions of the software
 
     ch_versions = Channel.empty()
 
-    CUTADAPT(ch_samplesheet)
+    CUTADAPT(input_ch)
     ch_versions = ch_versions.mix(CUTADAPT.out.versions.first())
 
     FLASH(CUTADAPT.out.reads)
