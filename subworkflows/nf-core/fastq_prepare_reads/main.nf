@@ -1,25 +1,18 @@
-#!/usr/bin/env nextflow
 
 //preparing the input channel for the workflow as a metamap
 
-params.input = '/Users/bagordo/Desktop/all/all_bioinformatics/nf-core-nanorepertoire/data/*_{1,2}_dummy2.fastq'
-input_ch = Channel
-        .fromFilePairs(params.input)
-        .map{ name, reads ->
-            [[id:name], [reads[0], reads[1]]]
-            }
 
 // this subworkflow prepares the inputs from fastq files for the translation
 // modules to include in this subworkflow
 
-include {CUTADAPT     } from '../../modules/nf-core/cutadapt/main.nf'
-include {FLASH        } from '../../modules/nf-core/flash/main.nf'
-include {RENAME       } from '../../modules/local/rename/main.nf'
+include {CUTADAPT } from '../../modules/nf-core/cutadapt/main.nf'
+include {FLASH    } from '../../modules/nf-core/flash/main.nf'
+include {RENAME   } from '../../modules/local/rename/main.nf'
 
 
 ///Users/bagordo/Desktop/all/all_bioinformatics/nf-core-nanorepertoire/data/*_{1,2}_dummy2.fastq
 // main workflow
-workflow PREPARE_READS {
+workflow FASTQ_PREPARE_READS {
 
     // with take we define the input channels
     take:
@@ -29,6 +22,7 @@ workflow PREPARE_READS {
     // define the channels that will be used to store the versions of the software
 
     ch_versions = Channel.empty()
+    input_ch = input
 
     CUTADAPT(input_ch)
     ch_versions = ch_versions.mix(CUTADAPT.out.versions.first())
@@ -43,9 +37,9 @@ workflow PREPARE_READS {
     // defining the output channels that the workflow will
     emit:
     // emitted channels
-    trimmed_fastq = CUTADAPT.out.fastq           // channel: [ val(meta), [ fastq ] ]
-    merged        = FLASH.out.fastq          // channel: [ val(meta), [ fastq ] ]
-    renamed       = RENAMING.out.fastq          // channel: [ val(meta), [ fastq ] ]
+    trimmed_fastq = CUTADAPT.out.fastq           // channel: [[id], [reads_forward, reads_reverse]]
+    merged        = FLASH.out.fastq              // channel: [[id], [ fastq_merged ]]
+    renamed       = RENAMING.out.fastq           // channel: [[id], [ fastq_renamed]]
 
     versions      = ch_versions                     // channel: [ versions.yml ]
 }

@@ -1,0 +1,9 @@
+sample,fastq_1,fastq2
+test1,./data/SRR18293079_FA-S-P1_1_dummy.fastq,./data/SRR18293079_FA-S-P1_2_dummy.fastq
+
+
+nome_A_1.fastq.gz
+nome_A_2.fastq.gz
+
+nome_B_1.fastq.gz
+nome_B_2.fastq.gz
